@@ -10,6 +10,12 @@ app.use(cors());
 const drivesRouter = require("./routes/Drives");
 app.use("/drives", drivesRouter);
 
+const interfacesRouter = require("./routes/Interfaces");
+app.use("/interfaces", interfacesRouter);
+
+const formFactorRouter = require("./routes/FormFactors");
+app.use("/formfactors", formFactorRouter);
+
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("Server running");
