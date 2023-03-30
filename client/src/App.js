@@ -3,7 +3,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import EditAdd from "./pages/EditAdd";
-import Drive from "./pages/Drive";
 import DrawerAppBar from "./components/Navbar";
 
 function App() {
@@ -15,7 +14,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/editadd" element={<EditAdd />} />
           <Route path="/editadd/:id" element={<EditAdd />} />
-          <Route path="/drive/:id" element={<Drive />} />
+          {/* <Route path="/drive/:id" element={<Drive />} /> */}
+          {/* page-not-found route */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </Router>
     </div>
