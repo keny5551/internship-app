@@ -49,6 +49,9 @@ function DrawerAppBar(props) {
               component={Link}
               to="/editadd"
               color="primary"
+              onClick={() => {
+                window.location.reload();
+              }}
             >
               Add Drive
             </Button>

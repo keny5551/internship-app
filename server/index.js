@@ -6,7 +6,7 @@ const cors = require("cors");
 const drivesRouter = require("./routes/drives");
 const interfacesRouter = require("./routes/interfaces");
 const formFactorRouter = require("./routes/formfactors");
-require("dotenv").config({ path: "./config/.env" });
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cors());
