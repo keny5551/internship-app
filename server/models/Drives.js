@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
   Drives.associate = (models) => {
     Drives.belongsTo(models.Interfaces, {
       foreignKey: { name: "InterfaceId", allowNull: false },
-
       as: "Interface",
     });
     Drives.belongsTo(models.FormFactors, {

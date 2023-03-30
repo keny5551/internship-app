@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
-import * as Yup from "yup";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import {
-  TextField,
-  Button,
-  MenuItem,
-  InputAdornment,
-  Alert,
-} from "@mui/material";
+import { TextField, Button, MenuItem, InputAdornment } from "@mui/material";
+const Swal = require("sweetalert2");
+
 function EditAdd() {
   let { id } = useParams();
 
   const isAddMode = !id;
-
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [listOfInterfaces, setListOfInterfaces] = useState([]);
   const [listOfFormFactors, setListOfFormFactors] = useState([]);
   const [driveObject, setDriveObject] = useState({});
@@ -32,42 +26,82 @@ function EditAdd() {
       FormFactorId: "1",
     },
     enableReinitialize: true,
+
     onSubmit: (data) => {
       isAddMode ? addDrive(data) : editDrive(data);
     },
     //isAddMode ? addDrive(data) : editDrive(data)
     // validationSchema: validationSchema,
   });
-  let initialValues;
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/interfaces").then((response) => {
-      setListOfInterfaces(response.data);
-    });
-    axios.get("http://localhost:3001/api/formfactors").then((response) => {
-      setListOfFormFactors(response.data);
-    });
-    if (isAddMode == false)
-      axios.get(`http://localhost:3001/api/drives/${id}`).then((response) => {
-        setDriveObject(response.data);
+    axios
+      .get("http://localhost:3001/api/interfaces")
+      .then((response) => {
+        setListOfInterfaces(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
+    axios
+      .get("http://localhost:3001/api/formfactors")
+      .then((response) => {
+        setListOfFormFactors(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    if (isAddMode === false)
+      axios
+        .get(`http://localhost:3001/api/drives/${id}`)
+        .then((response) => {
+          setDriveObject(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }, []);
 
   function addDrive(data) {
-    axios.post("http://localhost:3001/api/drives/", data).catch((error) => {
-      console.log(error);
-    });
-    navigate("/");
+    axios
+      .post("http://localhost:3001/api/drives/", data)
+      .then(() => {
+        Swal.fire({
+          position: "bottom-end",
+          icon: "success",
+          title: "Drive has been added",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // .then((response) => {
     //   console.log(response.data);
     // });
   }
 
   function editDrive(data) {
-    axios.put(`http://localhost:3001/api/drives/${id}`, data).catch((error) => {
-      console.log(error);
-    });
-    navigate("/");
+    axios
+      .put(`http://localhost:3001/api/drives/${id}`, data)
+      .then(() => {
+        Swal.fire({
+          position: "bottom-end",
+          icon: "success",
+          title: "Drive has been edited",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
