@@ -10,7 +10,7 @@ router.get("/", drives.findAll);
 router.get("/:id", drives.findOne);
 
 // Add a new drive
-router.post("/add", drives.add);
+router.post("/", drives.add);
 
 // Update a drive with id
 router.put("/:id", drives.update);

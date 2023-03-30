@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     rotation_speed: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     price: {
@@ -24,11 +24,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Drives.associate = (models) => {
     Drives.belongsTo(models.Interfaces, {
-      foreignKey: "InterfaceId",
+      foreignKey: { name: "InterfaceId", allowNull: false },
+
       as: "Interface",
     });
     Drives.belongsTo(models.FormFactors, {
-      foreignKey: "FormFactorId",
+      foreignKey: { name: "FormFactorId", allowNull: false },
       as: "FormFactor",
     });
   };

@@ -10,6 +10,6 @@ router.get("/", formfactors.findAll);
 router.get("/:id", formfactors.findOne);
 
 // Add a new form factor
-router.post("/add", formfactors.add);
+router.post("/", formfactors.add);
 
 module.exports = router;

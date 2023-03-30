@@ -10,6 +10,6 @@ router.get("/", interfaces.findAll);
 router.get("/:id", interfaces.findOne);
 
 // Add a new interface
-router.post("/add", interfaces.add);
+router.post("/", interfaces.add);
 
 module.exports = router;

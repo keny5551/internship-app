@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import { TextField, Button, MenuItem } from "@mui/material";
-
+import {
+  TextField,
+  Button,
+  MenuItem,
+  InputAdornment,
+  Alert,
+} from "@mui/material";
 function EditAdd() {
   let { id } = useParams();
 
   const isAddMode = !id;
 
+  let navigate = useNavigate();
   const [listOfInterfaces, setListOfInterfaces] = useState([]);
   const [listOfFormFactors, setListOfFormFactors] = useState([]);
   const [driveObject, setDriveObject] = useState({});
@@ -22,15 +28,15 @@ function EditAdd() {
       type: driveObject.type,
       rotation_speed: driveObject.rotation_speed,
       price: driveObject.price,
-      InterfaceId: driveObject.Interface,
-      FormFactorId: driveObject.FormFactorId,
+      InterfaceId: "1",
+      FormFactorId: "1",
     },
     enableReinitialize: true,
     onSubmit: (data) => {
       isAddMode ? addDrive(data) : editDrive(data);
     },
     //isAddMode ? addDrive(data) : editDrive(data)
-    //validationSchema: { validationSchema },
+    // validationSchema: validationSchema,
   });
   let initialValues;
 
@@ -47,26 +53,11 @@ function EditAdd() {
       });
   }, []);
 
-  const validationSchema = Yup.object().shape({
-    brand: Yup.string().required(),
-    model: Yup.string().required(),
-    type: Yup.string().required(),
-    rotation_speed: Yup.string().nullable(),
-    price: Yup.number()
-      .positive()
-      .required(),
-    InterfaceId: Yup.number()
-      .integer()
-      .required(),
-    FormFactorId: Yup.number()
-      .integer()
-      .required(),
-  });
-
   function addDrive(data) {
     axios.post("http://localhost:3001/api/drives/", data).catch((error) => {
       console.log(error);
     });
+    navigate("/");
     // .then((response) => {
     //   console.log(response.data);
     // });
@@ -76,6 +67,7 @@ function EditAdd() {
     axios.put(`http://localhost:3001/api/drives/${id}`, data).catch((error) => {
       console.log(error);
     });
+    navigate("/");
   }
 
   return (
@@ -89,6 +81,8 @@ function EditAdd() {
         <form onSubmit={formik.handleSubmit}>
           <div>
             <TextField
+              focused
+              required
               id="brand"
               name="brand"
               value={formik.values.brand}
@@ -96,6 +90,8 @@ function EditAdd() {
               label="Brand"
             />
             <TextField
+              focused
+              required
               id="model"
               name="model"
               value={formik.values.model}
@@ -103,28 +99,52 @@ function EditAdd() {
               label="Model"
             />
             <TextField
+              focused
+              required
               id="type"
               name="type"
               value={formik.values.type}
               onChange={formik.handleChange}
               label="Type"
+              aria-describedby="outlined-weight-helper-text"
+              inputProps={{
+                "aria-label": "weight",
+              }}
             />
             <TextField
+              focused
               id="rotation_speed"
               name="rotation_speed"
+              label="Rotation speed"
               value={formik.values.rotation_speed}
               onChange={formik.handleChange}
-              label="Rotation speed"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">RPM</InputAdornment>
+                ),
+
+                InputLabelProps: { shrink: true },
+              }}
             />
             <TextField
+              required
+              focused
+              type="number"
               id="price"
               name="price"
               value={formik.values.price}
               onChange={formik.handleChange}
               label="Price"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">€</InputAdornment>
+                ),
+              }}
             />
           </div>
           <TextField
+            focused
+            required
             id="interface"
             name="InterfaceId"
             select
@@ -138,6 +158,8 @@ function EditAdd() {
             ))}
           </TextField>
           <TextField
+            required
+            focused
             id="formfactor"
             name="FormFactorId"
             value={formik.values.FormFactorId}
