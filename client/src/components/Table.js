@@ -47,7 +47,7 @@ export default function DenseTable() {
                 {row.brand}
               </TableCell>
               <TableCell align="right">{row.model}</TableCell>
-              <TableCell align="right">xd</TableCell>
+              <TableCell align="right">{row.type}</TableCell>
               <TableCell align="right">{row.rotation_speed}</TableCell>
               <TableCell align="right">{row.Interface.name}</TableCell>
               <TableCell align="right">{row.FormFactor.name}</TableCell>

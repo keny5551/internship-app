@@ -48,6 +48,7 @@ router.put("/update/:id", async (req, res) => {
     {
       brand: req.body.brand,
       model: req.body.model,
+      type: req.body.type,
       rotation_speed: req.body.rotation_speed,
       price: req.body.price,
       InterfaceId: req.body.InterfaceId,

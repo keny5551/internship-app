@@ -22,6 +22,7 @@ function Drive() {
       <div className="drive">
         <div className="brand"> {driveObject.name} </div>
         <div className="model"> {driveObject.model} </div>
+        <div className="type"> {driveObject.type} </div>
         <div className="rotation_speed"> {driveObject.rotation_speed} </div>
         <div className="price"> {driveObject.price} </div>
         <div className="interface"> {interfaceObject.name} </div>

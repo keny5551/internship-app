@@ -19,6 +19,7 @@ function EditAdd() {
     initialValues: {
       brand: driveObject.brand,
       model: driveObject.model,
+      type: driveObject.type,
       rotation_speed: driveObject.rotation_speed,
       price: driveObject.price,
       InterfaceId: driveObject.Interface,
@@ -49,6 +50,7 @@ function EditAdd() {
   const validationSchema = Yup.object().shape({
     brand: Yup.string().required(),
     model: Yup.string().required(),
+    type: Yup.string().required(),
     rotation_speed: Yup.string().nullable(),
     price: Yup.number()
       .positive()
@@ -95,6 +97,13 @@ function EditAdd() {
               value={formik.values.model}
               onChange={formik.handleChange}
               label="Model"
+            />
+            <TextField
+              id="type"
+              name="type"
+              value={formik.values.type}
+              onChange={formik.handleChange}
+              label="Type"
             />
             <TextField
               id="rotation_speed"
