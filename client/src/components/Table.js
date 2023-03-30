@@ -18,9 +18,14 @@ export default function DenseTable() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/drives").then((response) => {
-      setListOfDrives(response.data);
-    });
+    axios
+      .get("http://localhost:3001/api/drives/")
+      .then((response) => {
+        setListOfDrives(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   return (
     <TableContainer component={Paper}>

@@ -10,11 +10,16 @@ function Drive() {
   const [formfactorObject, setFormFactor] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/drives/byId/${id}`).then((response) => {
-      setDriveObject(response.data);
-      setInterface(response.data.Interface);
-      setFormFactor(response.data.FormFactor);
-    });
+    axios
+      .get(`http://localhost:3001/api/drives/${id}`)
+      .then((response) => {
+        setDriveObject(response.data);
+        setInterface(response.data.Interface);
+        setFormFactor(response.data.FormFactor);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

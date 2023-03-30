@@ -1,22 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { FormFactors } = require("../models");
 
-router.get("/", async (req, res) => {
-  const listofFormFactors = await FormFactors.findAll();
-  res.json(listofFormFactors);
-});
+const formfactors = require("../controllers/formfactors.js");
 
-router.get("/byId/:id", async (req, res) => {
-  const id = req.params.id;
-  const formfactor = await FormFactors.findByPk(id);
-  res.json(formfactor);
-});
+// Retrieve all form factors
+router.get("/", formfactors.findAll);
 
-router.post("/", async (req, res) => {
-  const formfactor = req.body;
-  await FormFactors.create(formfactor);
-  res.json(formfactor);
-});
+// Retrieve a single form factor with id
+router.get("/:id", formfactors.findOne);
+
+// Add a new form factor
+router.post("/add", formfactors.add);
 
 module.exports = router;

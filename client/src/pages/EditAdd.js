@@ -35,14 +35,14 @@ function EditAdd() {
   let initialValues;
 
   useEffect(() => {
-    axios.get("http://localhost:3001/interfaces").then((response) => {
+    axios.get("http://localhost:3001/api/interfaces").then((response) => {
       setListOfInterfaces(response.data);
     });
-    axios.get("http://localhost:3001/formfactors").then((response) => {
+    axios.get("http://localhost:3001/api/formfactors").then((response) => {
       setListOfFormFactors(response.data);
     });
     if (isAddMode == false)
-      axios.get(`http://localhost:3001/drives/byId/${id}`).then((response) => {
+      axios.get(`http://localhost:3001/api/drives/${id}`).then((response) => {
         setDriveObject(response.data);
       });
   }, []);
@@ -64,14 +64,18 @@ function EditAdd() {
   });
 
   function addDrive(data) {
-    axios.post("http://localhost:3001/drives", data);
+    axios.post("http://localhost:3001/api/drives/", data).catch((error) => {
+      console.log(error);
+    });
     // .then((response) => {
     //   console.log(response.data);
     // });
   }
 
   function editDrive(data) {
-    axios.put(`http://localhost:3001/drives/update/${id}`, data);
+    axios.put(`http://localhost:3001/api/drives/${id}`, data).catch((error) => {
+      console.log(error);
+    });
   }
 
   return (
