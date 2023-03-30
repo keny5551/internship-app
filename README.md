@@ -18,8 +18,10 @@ This project is a web application that will display a list of hard drives. The a
 To install and run the application, you need to have Node.js and npm installed on your system. Once you have these installed, you can follow these steps:
 
 1. Clone the repository: `git clone https://github.com/keny5551/internship-app.git`
-2. Install the dependencies: `cd internship-app` and `npm install`
-3. Create a `.env` file with the following configuration:
+2. Install the dependencies: 
+   - for backend `cd internship-app/server` and `npm install` 
+   - for frontend `cd internship-app/client` and `npm install`
+3. Create a `.env` file in `internship-app/server` with the following configuration:
    ```
    DB_USERNAME=your_database_username
    DB_PASSWORD=your_database_password
