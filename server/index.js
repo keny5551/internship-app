@@ -6,7 +6,6 @@ const cors = require("cors");
 const drivesRouter = require("./routes/drives");
 const interfacesRouter = require("./routes/interfaces");
 const formFactorRouter = require("./routes/formfactors");
-require("dotenv").config();
 
 app.use(express.json());
 app.use(cors());
@@ -19,8 +18,8 @@ app.use("/api/formfactors", formFactorRouter);
 db.sequelize
   .sync()
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running on port ${process.env.PORT}`);
+    app.listen(3001, () => {
+      console.log(`Server running on port 3001`);
     });
   })
   .then(() => {

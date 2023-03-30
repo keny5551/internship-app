@@ -20,19 +20,19 @@ To install and run the application, you need to have Node.js and npm installed o
 1. Clone the repository: `git clone https://github.com/keny5551/internship-app.git`
 2. Install the dependencies: `cd internship-app` and `npm install`
 3. Create a `.env` file with the following configuration:
-    ```
-    PORT=port_to_api
-    DB_USERNAME=your_database_username
-    DB_PASSWORD=your_database_password
-    DB_NAME=your_database_name
-    DB_HOST=your_database_host
-    DB_PORT=your_database_port
-    ```
+   ```
+   DB_USERNAME=your_database_username
+   DB_PASSWORD=your_database_password
+   DB_NAME=your_database_name
+   DB_HOST=your_database_host
+   DB_PORT=your_database_port
+   ```
 4. Run the application: `npm start`
 
 ## Usage
 
-Once you have the application running, you can access it at http://localhost:.ENV.PORT/. The application allows you to add and edit drives from the list. Additionally, on the backend side, functions have been added to allow adding and getting interfaces and form factors.
+Once you have the application running, you can access it at http://localhost:3000/. The application allows you to add and edit drives from the list. Additionally, on the backend side, functions have been added to allow adding and getting interfaces and form factors.
+
 ## Configuration
 
-The application can be configured by editing the `.env` file. You can change the port number or the database configuration in this file.
+The application can be configured by editing the `.env` file. You can change the database configuration in this file.
