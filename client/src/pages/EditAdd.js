@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import { TextField, Button, MenuItem, InputAdornment } from "@mui/material";
+import Footer from "../components/Footer";
 const Swal = require("sweetalert2");
 
 function EditAdd() {
@@ -162,6 +163,7 @@ function EditAdd() {
               focused
               id="rotation_speed"
               name="rotation_speed"
+              type="number"
               label="Rotation speed"
               value={formik.values.rotation_speed}
               onChange={formik.handleChange}
@@ -176,7 +178,7 @@ function EditAdd() {
             <TextField
               required
               focused
-              type="text"
+              type="number"
               id="price"
               name="price"
               value={formik.values.price}
@@ -226,6 +228,7 @@ function EditAdd() {
           </div>
         </form>
       </div>
+      <Footer />
     </Box>
   );
 }

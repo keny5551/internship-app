@@ -38,7 +38,7 @@ export default function DenseTable() {
             <TableCell align="right">Rotation Speed</TableCell>
             <TableCell align="right">Interface</TableCell>
             <TableCell align="right">Form Factor</TableCell>
-            <TableCell align="right">Price</TableCell>
+            <TableCell align="right">Price (€)</TableCell>
             <TableCell size="small" align="center"></TableCell>
           </TableRow>
         </TableHead>
