@@ -22,9 +22,12 @@ function EditAdd() {
       type: driveObject.type,
       rotation_speed: driveObject.rotation_speed,
       price: driveObject.price,
-      InterfaceId: "1",
-      FormFactorId: "1",
+      InterfaceId:
+        driveObject.InterfaceId !== undefined ? driveObject.InterfaceId : "1",
+      FormFactorId:
+        driveObject.FormFactorId !== undefined ? driveObject.FormFactorId : "1",
     },
+
     enableReinitialize: true,
 
     onSubmit: (data) => {

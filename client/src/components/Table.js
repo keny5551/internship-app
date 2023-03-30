@@ -56,7 +56,7 @@ export default function DenseTable() {
               <TableCell align="right">{row.rotation_speed}</TableCell>
               <TableCell align="right">{row.Interface.name}</TableCell>
               <TableCell align="right">{row.FormFactor.name}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
+              <TableCell align="right">{row.price} €</TableCell>
               <TableCell size="small" align="center">
                 <IconButton
                   aria-label="edit"
