@@ -81,6 +81,11 @@ function EditAdd() {
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong! Please enter the data again.",
+        });
       });
 
     // .then((response) => {
@@ -104,6 +109,11 @@ function EditAdd() {
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong! Please enter the data again.",
+        });
       });
   }
 
@@ -166,7 +176,7 @@ function EditAdd() {
             <TextField
               required
               focused
-              type="number"
+              type="text"
               id="price"
               name="price"
               value={formik.values.price}
