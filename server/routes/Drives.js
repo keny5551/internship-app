@@ -1,61 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { Drives, Interfaces, FormFactors } = require("../models");
 
-router.get("/", async (req, res) => {
-  const listOfDrives = await Drives.findAll({
-    include: [
-      {
-        model: Interfaces,
-        as: "Interface",
-      },
-      {
-        model: FormFactors,
-        as: "FormFactor",
-      },
-    ],
-  });
-  res.json(listOfDrives);
-});
+const drives = require("../controllers/drives.js");
 
-router.get("/byId/:id", async (req, res) => {
-  const id = req.params.id;
-  const drive = await Drives.findByPk(id, {
-    include: [
-      {
-        model: Interfaces,
-        as: "Interface",
-      },
-      {
-        model: FormFactors,
-        as: "FormFactor",
-      },
-    ],
-  });
-  res.json(drive);
-});
+// Retrieve all drives
+router.get("/", drives.findAll);
 
-router.post("/", async (req, res) => {
-  const drive = req.body;
-  await Drives.create(drive);
-  res.json(drive);
-});
+// Retrieve a single drive with id
+router.get("/:id", drives.findOne);
 
-router.put("/update/:id", async (req, res) => {
-  const id = req.params.id;
+// Add a new drive
+router.post("/add", drives.add);
 
-  await Drives.update(
-    {
-      brand: req.body.brand,
-      model: req.body.model,
-      type: req.body.type,
-      rotation_speed: req.body.rotation_speed,
-      price: req.body.price,
-      InterfaceId: req.body.InterfaceId,
-      FormFactorId: req.body.FormFactorId,
-    },
-    { returning: true, where: { id: id } }
-  );
-});
+// Update a drive with id
+router.put("/:id", drives.update);
 
 module.exports = router;
