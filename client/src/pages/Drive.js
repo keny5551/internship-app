@@ -18,21 +18,19 @@ function Drive() {
   }, []);
 
   return (
-    <>
-      <div>
-        <div className="drive">
-          <div className="brand"> {driveObject.name} </div>
-          <div className="model"> {driveObject.model} </div>
-          <div className="rotation_speed"> {driveObject.rotation_speed} </div>
-          <div className="price"> {driveObject.price} </div>
-          <div className="interface"> {interfaceObject.name} </div>
-          <div className="formfactor"> {formfactorObject.name} </div>
-        </div>
+    <div>
+      <div className="drive">
+        <div className="brand"> {driveObject.name} </div>
+        <div className="model"> {driveObject.model} </div>
+        <div className="rotation_speed"> {driveObject.rotation_speed} </div>
+        <div className="price"> {driveObject.price} </div>
+        <div className="interface"> {interfaceObject.name} </div>
+        <div className="formfactor"> {formfactorObject.name} </div>
       </div>
-      <li>
-        <Link to={`/editadd/${id}`}>Update</Link>
-      </li>
-    </>
+    </div>
+    // <li>
+    //   <Link to={`/editadd/${id}`}>Update</Link>
+    // </li>
   );
 }
 

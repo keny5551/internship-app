@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import { TextField, Button, MenuItem } from "@mui/material";
 
 function EditAdd() {
   let { id } = useParams();
@@ -13,6 +15,22 @@ function EditAdd() {
   const [listOfFormFactors, setListOfFormFactors] = useState([]);
   const [driveObject, setDriveObject] = useState({});
 
+  const formik = useFormik({
+    initialValues: {
+      brand: driveObject.brand,
+      model: driveObject.model,
+      rotation_speed: driveObject.rotation_speed,
+      price: driveObject.price,
+      InterfaceId: driveObject.Interface,
+      FormFactorId: driveObject.FormFactorId,
+    },
+    enableReinitialize: true,
+    onSubmit: (data) => {
+      isAddMode ? addDrive(data) : editDrive(data);
+    },
+    //isAddMode ? addDrive(data) : editDrive(data)
+    //validationSchema: { validationSchema },
+  });
   let initialValues;
 
   useEffect(() => {
@@ -27,24 +45,6 @@ function EditAdd() {
         setDriveObject(response.data);
       });
   }, []);
-
-  isAddMode
-    ? (initialValues = {
-        brand: "",
-        model: "",
-        rotation_speed: "",
-        price: "",
-        InterfaceId: "",
-        FormFactorId: "",
-      })
-    : (initialValues = {
-        brand: driveObject.brand,
-        model: driveObject.model,
-        rotation_speed: driveObject.rotation_speed,
-        price: driveObject.price,
-        InterfaceId: driveObject.InterfaceId,
-        FormFactorId: driveObject.FormFactorId,
-      });
 
   const validationSchema = Yup.object().shape({
     brand: Yup.string().required(),
@@ -72,63 +72,79 @@ function EditAdd() {
     axios.put(`http://localhost:3001/drives/update/${id}`, data);
   }
 
-  const onSubmit = (data) => (isAddMode ? addDrive(data) : editDrive(data));
-
   return (
-    <div>
-      <Formik
-        enableReinitialize
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form>
-          <ErrorMessage name="brand" component="div" />
-          <label>Brand: </label>
-          <Field
-            id="inputEditAdd"
-            name="brand"
-            placehold="(Ex. Samsung)"
-            autocomplete="off"
-          />
-          <ErrorMessage name="model" component="div" />
-          <label>Model: </label>
-          <Field
-            id="inputEditAdd"
-            name="model"
-            placehold="(Ex. EVO 970 PRO)"
-            autocomplete="off"
-          />
-          <ErrorMessage name="rotation_speed" component="div" />
-          <label>Rotation Speed: </label>
-          <Field id="inputEditAdd" name="rotation_speed" autocomplete="off" />
-          <ErrorMessage name="price" component="div" />
-          <label>Price: </label>
-          <Field id="inputEditAdd" name="price" autocomplete="off" />
-
-          <label>Interface: </label>
-          <Field id="inputEditAdd" as="select" name="InterfaceId">
-            <option disabled value="">
-              Pick a interface
-            </option>
-            {listOfInterfaces.map((value, key) => {
-              return <option value={value.id}>{value.name} </option>;
-            })}
-          </Field>
-
-          <label>Form Factor: </label>
-          <Field id="inputEditAdd" as="select" name="FormFactorId">
-            <option disabled value="">
-              Pick a form factor
-            </option>
-            {listOfFormFactors.map((value, key) => {
-              return <option value={value.id}>{value.name} </option>;
-            })}
-          </Field>
-          <button type="submit"> Add Drive</button>
-        </Form>
-      </Formik>
-    </div>
+    <Box
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      autoComplete="off"
+    >
+      <div>
+        <form onSubmit={formik.handleSubmit}>
+          <div>
+            <TextField
+              id="brand"
+              name="brand"
+              value={formik.values.brand}
+              onChange={formik.handleChange}
+              label="Brand"
+            />
+            <TextField
+              id="model"
+              name="model"
+              value={formik.values.model}
+              onChange={formik.handleChange}
+              label="Model"
+            />
+            <TextField
+              id="rotation_speed"
+              name="rotation_speed"
+              value={formik.values.rotation_speed}
+              onChange={formik.handleChange}
+              label="Rotation speed"
+            />
+            <TextField
+              id="price"
+              name="price"
+              value={formik.values.price}
+              onChange={formik.handleChange}
+              label="Price"
+            />
+          </div>
+          <TextField
+            id="interface"
+            name="InterfaceId"
+            select
+            value={formik.values.InterfaceId}
+            onChange={formik.handleChange}
+            label="Select interface"
+            helperText="Please select disk interface"
+          >
+            {listOfInterfaces.map((option) => (
+              <MenuItem value={option.id}>{option.name}</MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            id="formfactor"
+            name="FormFactorId"
+            value={formik.values.FormFactorId}
+            onChange={formik.handleChange}
+            select
+            label="Select form factor"
+            helperText="Please select form factor"
+          >
+            {listOfFormFactors.map((option) => (
+              <MenuItem value={option.id}>{option.name}</MenuItem>
+            ))}
+          </TextField>
+          <div>
+            <Button color="success" variant="contained" type="submit">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Box>
   );
 }
 
