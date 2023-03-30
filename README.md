@@ -11,7 +11,7 @@ This is a task project for the Nubedian GmbH internship program.
 
 ## Introduction
 
-This project is a web application that will display a list of hard drives. The application provides a user interface to add, edit disks from the list. The application uses React.js for the frontend and Node.js with Express.js for the backend. The data is stored in a MySQL database.
+This project is a web application that will display a list of hard drives. The application provides a user interface to add, edit disks from the list. The application uses React.js for the frontend and Node.js with Express.js for the backend. The data is stored in a MySQL database. The user doesn't need to create a table as I have used the Sequelize library to create models that will automatically generate the database.
 
 ## Installation
 
